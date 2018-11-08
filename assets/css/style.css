@@ -19,7 +19,7 @@ body{
     border: 2px solid rgb(97, 182, 175);
     border-radius: 25px;
 }
-.movie:hover,#add-movie:hover,#gif-rating-div:hover{
+.movie:hover,#show-fav:hover,#add-movie:hover,#gif-rating-div:hover{
     background-color: blueviolet;
     color:yellow;
 }
@@ -32,9 +32,10 @@ body{
 #movie-input,#label{
     margin-right: 20px;
 }
-#add-movie{
+#add-movie,#show-fav{
     border-radius: 25px;
     padding: 5px 10px; 
+    margin-right: 30px;
     border: 2px solid rgb(97, 182, 175);
 }
 #gif-rating-div{
