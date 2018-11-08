@@ -32,10 +32,6 @@ body{
 #movie-input,#label{
     margin-right: 20px;
 }
-#movie-input{
-    background-color: white;
-    color: black !important;
-}
 #add-movie{
     border-radius: 25px;
     padding: 5px 10px; 
@@ -55,10 +51,8 @@ body{
     margin-bottom: 0px;
     padding: 5px;
 }
-
-/* .downBtn,.starButton{
-    margin-bottom: 5px;
-    padding: 0px 3px;
+#dymanicBtn{
     background-color: blue;
-} */
-
+    margin-bottom: 5px;
+    padding: 0px 3px;;
+}

@@ -2,6 +2,7 @@
 var topics = ["Frozen","Avengers","Twilight","Inception","Black Panther","Spider Man"];
 var previousMovie;
 var previousCount = 10;
+var favourites = [];
 
 // funtion to render the buttons.
 function renderButton(){
@@ -75,7 +76,6 @@ function displayGIF(){
             newImage.attr("status","still");
             newImage.attr("src",stillurl);
             newImage.attr("still-url",stillurl);
-            console.log(stillurl);
             newImage.attr("animate-url",animateurl);
             newDiv.append(newImage);
 
@@ -86,14 +86,13 @@ function displayGIF(){
             newDiv.append(newP);
 
             // create the <button> and <a> tag an append to newDiv.
-            var newButton = $("<button>");
-            newButton.text("Download");
-            newButton.addClass("btn btn-info");
-            newButton.attr("id","dymanicBtn");
-            //newButton.css("background-color","blue");
+            var downButton = $("<button>");
+            downButton.text("Download");
+            downButton.addClass("btn btn-primary btn-sm downBtn");
+            downButton.attr("style","margin-bottom:10px;border-radius:30px;");
             var newIcon = $("<i>");
             newIcon.addClass("fa fa-download");  
-            newButton.prepend(newIcon);
+            downButton.prepend(newIcon);
             
             // create anchor tag  and append with newDiv.
             var newAnchor = $("<a>");
@@ -101,8 +100,19 @@ function displayGIF(){
             newAnchor.attr("download","file.jpg");
             newAnchor.attr("target","_blank");
             newAnchor.attr("id","anchor-image")
-            newAnchor.append(newButton);
+            newAnchor.append(downButton);
             newDiv.append(newAnchor);
+
+            // create button tag and the star icon
+            var favButton = $("<button>");
+            favButton.text("Favourite");
+            favButton.addClass("btn btn-info btn-sm favouriteButton");
+            favButton.attr("style","margin-left:10px; margin-bottom:10px;border-radius:30px;");
+            favButton.attr("movie-name","")
+            // var newSpan = $("<span>");
+            // newSpan.addClass("glyphicon glyphicon-star");
+            // newButton2.append(newSpan);
+            newDiv.append(favButton);
             $("#gif-div").append(newDiv);
         }
     });
@@ -123,12 +133,18 @@ function toggleGIF(){
     }
 }
 
+function addFavourite(){
+
+}
+
 // gif image click event.
 $(document).on("click", ".gif", toggleGIF);
 
 // movie button click event.
 $(document).on("click", ".movie", displayGIF);
 
+// movie favourite button click event.
+$(document).on("click", ".favouriteButton", addFavourite);
 
 // call the renderButton function.
 renderButton();
