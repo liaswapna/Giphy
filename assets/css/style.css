@@ -19,20 +19,40 @@ body{
     border: 2px solid rgb(97, 182, 175);
     border-radius: 25px;
 }
-.movie:hover,#add-movie:hover{
+.movie:hover,#add-movie:hover,#gif-rating-div:hover{
     background-color: blueviolet;
     color:yellow;
 }
-#gif-form-container{
+#form-container{
     margin-top: 40px;
+}
+#form-movie{
+    padding: 5px 25px;
+}
+#movie-input,#label{
+    margin-right: 20px;
 }
 #add-movie{
     border-radius: 25px;
     padding: 5px 10px; 
     border: 2px solid rgb(97, 182, 175);
 }
+#gif-rating-div{
+    float:left;
+    margin: 30px 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
 .gif{
-    margin:10px;
-    height:300px;
-    width: 400px;
+    height: 150px;
+    width: 200px;
+}
+#rating{
+    margin-bottom: 0px;
+    padding: 5px;
+}
+#dymanicBtn{
+    background-color: blue;
+    margin-bottom: 5px;
+    padding: 0px 3px;;
 }

@@ -6,6 +6,7 @@
 
         <!-- link to the css file -->
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -17,26 +18,26 @@
         <!-- container for the button display -->
         <div class="container-fluid" id="button-list-container">
             <div class="row">
-                <div class="col-sm-12" id = "button-list"></div>
+                <div class="col-sm-12 col-md-12" id = "button-list"></div>
             </div>
         </div>
-        <div class="container-fluid" id = "gif-form-container">
+        <div class="container-fluid" id = "form-container">
             <div class="row">
-                <div class="col-sm-7" id="gif-div"></div>
-                <div class="col-sm-5" id="form">
+                <div class="col-sm-12" id="form">
                     <form id = "form-movie">
-                        <div>
                         <label id="label">Add a movie</label>
-                        </div>
                         <input id = "movie-input" type = "text">
-                        <br>
-                        <br>
                         <input class="btn-info" id = "add-movie" type = "submit" value = "ADD MOVIE">
                     </form>
                 </div>
             </div>
         </div>
-
+        <div class="container-fluid" id = "gif-form-container">
+            <div class="row"></div>
+                <div class="col-sm-12" id="gif-div"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- link to javascript file -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
