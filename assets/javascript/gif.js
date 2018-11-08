@@ -37,88 +37,14 @@ $("#add-movie").on("click",function(event){
         newMsg.css("color", "red");
         newMsg.css("padding","10px");
         $("#gif-div").append(newMsg);
-        //$("#movie-input").val("Select a movie not in the list");
     }
 });
 
 // Button click event to show the favourites.
 $("#show-fav").on("click",function(event){
+    favourites = JSON.parse(localStorage.getItem("fav"));
     event.preventDefault();
-    $("#gif-div").empty();
-
-    for(var i=0;i<favourites.length;i++){
-        var favqueryURL = `http://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
-        //var favqueryURL = `http://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
-    console.log("favqueryURL: "+favqueryURL);
-    $.ajax({
-        url: favqueryURL,
-        method: "GET"
-    }).then(function(response){
-        console.log(response);
-        var favresult = response.data;
-        console.log(favresult);
-        console.log("fav-type: "+favresult.type);
-        console.log("favstillurl: "+favresult.images.fixed_height_still.url);
-        // var favDiv = $("<div>");
-        // favDiv.text("<p>"+favourites[i]+"</p>");
-        // $("#gif-div").append(favDiv);
-        // get the value, store the value and create a div to append.
-        var stillurl = favresult.images.fixed_height_still.url;
-        var animateurl = favresult.images.fixed_height.url;
-        var rating = favresult.rating.toUpperCase();
-        var picId = favresult.id;
-        var newDiv = $("<div>");
-        newDiv.attr("id","gif-rating-div");
-        newDiv.addClass("text-center");
-
-        // create the image tag and append newDiv.
-        var newImage = $("<img>");
-        newImage.addClass("gif");
-        newImage.attr("alt","MyImage");
-        newImage.attr("status","still");
-        newImage.attr("src",stillurl);
-        newImage.attr("still-url",stillurl);
-        newImage.attr("animate-url",animateurl);
-        newDiv.append(newImage);
-
-        // create the rating <p> tag and append to newDiv.
-        var newP = $("<p>Rating: "+rating+"</p>");
-        newP.addClass("text-center");
-        newP.attr("id","rating");
-        newDiv.append(newP);
-
-        // create the <button> and <a> tag an append to newDiv.
-        var downButton = $("<button>");
-        downButton.text("Download");
-        downButton.addClass("btn btn-primary btn-sm downBtn");
-        downButton.attr("style","margin-bottom:10px;border-radius:30px;");
-        var newIcon = $("<i>");
-        newIcon.addClass("fa fa-download");  
-        downButton.prepend(newIcon);
-
-        // create anchor tag  and append with newDiv.
-        var newAnchor = $("<a>");
-        newAnchor.attr("href",stillurl);
-        newAnchor.attr("download","file.jpg");
-        newAnchor.attr("target","_blank");
-        newAnchor.attr("id","anchor-image")
-        newAnchor.append(downButton);
-        newDiv.append(newAnchor);
-
-        // create button tag and the star icon
-        var remButton = $("<button>");
-        remButton.text("Remove");
-        remButton.addClass("btn btn-info btn-sm removeFavButton");
-        remButton.attr("style","margin-left:10px; margin-bottom:10px;border-radius:30px;");
-        remButton.attr("movie-name",picId);
-        // var newSpan = $("<span>");
-        // newSpan.addClass("glyphicon glyphicon-star");
-        // newButton2.append(newSpan);
-        newDiv.append(remButton);
-        $("#gif-div").append(newDiv);
-    });
-    }
-
+    showFavourite();
 });
 
 // function to display the GIF images.
@@ -214,17 +140,87 @@ function toggleGIF(){
     $(this).attr("status","still");
     }
 }
+function showFavourite(){
+    $("#gif-div").empty();
+    for(var i=0;i<favourites.length;i++){
+        var favqueryURL = `http://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
+    console.log("favqueryURL: "+favqueryURL);
+    $.ajax({
+        url: favqueryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response);
+        var favresult = response.data;
+        var stillurl = favresult.images.fixed_height_still.url;
+        var animateurl = favresult.images.fixed_height.url;
+        var rating = favresult.rating.toUpperCase();
+        var picId = favresult.id;
+        var newDiv = $("<div>");
+        newDiv.attr("id","gif-rating-div");
+        newDiv.addClass("text-center");
+
+        // create the image tag and append newDiv.
+        var newImage = $("<img>");
+        newImage.addClass("gif");
+        newImage.attr("alt","MyImage");
+        newImage.attr("status","still");
+        newImage.attr("src",stillurl);
+        newImage.attr("still-url",stillurl);
+        newImage.attr("animate-url",animateurl);
+        newDiv.append(newImage);
+
+        // create the rating <p> tag and append to newDiv.
+        var newP = $("<p>Rating: "+rating+"</p>");
+        newP.addClass("text-center");
+        newP.attr("id","rating");
+        newDiv.append(newP);
+
+        // create the <button> and <a> tag an append to newDiv.
+        var downButton = $("<button>");
+        downButton.text("Download");
+        downButton.addClass("btn btn-primary btn-sm downBtn");
+        downButton.attr("style","margin-bottom:10px;border-radius:30px;");
+        var newIcon = $("<i>");
+        newIcon.addClass("fa fa-download");  
+        downButton.prepend(newIcon);
+
+        // create anchor tag  and append with newDiv.
+        var newAnchor = $("<a>");
+        newAnchor.attr("href",stillurl);
+        newAnchor.attr("download","file.jpg");
+        newAnchor.attr("target","_blank");
+        newAnchor.attr("id","anchor-image")
+        newAnchor.append(downButton);
+        newDiv.append(newAnchor);
+
+        // create button tag and the star icon
+        var remButton = $("<button>");
+        remButton.text("Remove");
+        remButton.addClass("btn btn-info btn-sm removeFavButton");
+        remButton.attr("style","margin-left:10px; margin-bottom:10px;border-radius:30px;");
+        remButton.attr("movie-name",picId);
+        // var newSpan = $("<span>");
+        // newSpan.addClass("glyphicon glyphicon-star");
+        // newButton2.append(newSpan);
+        newDiv.append(remButton);
+        $("#gif-div").append(newDiv);
+    });
+    }
+}
 
 function addFavourite(){
     var favId = $(this).attr("movie-name");
     //console.log("favourite ID: ",favId);
     favourites.push(favId);
+    localStorage.setItem("fav",JSON.stringify(favourites));
 }
 
 function removeFavourite(){
     var remId = $(this).attr("movie-name");
     var remIndex = favourites.indexOf(remId);
     favourites.splice(remIndex,1);
+    showFavourite();
+    localStorage.setItem("fav",JSON.stringify(favourites));
     console.log("after splice: "+favourites);
 }
 
