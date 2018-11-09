@@ -38,6 +38,10 @@ body{
     margin-right: 30px;
     border: 2px solid rgb(97, 182, 175);
 }
+#plot-div{
+    margin-left: 10px;
+    margin-top: 10px;
+}
 #gif-rating-div{
     float:left;
     margin: 30px 20px;

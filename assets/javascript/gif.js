@@ -3,6 +3,9 @@ var topics = ["Frozen","Avengers","Twilight","Inception","Black Panther","Spider
 var previousMovie;
 var previousCount = 10;
 var favourites = [];
+var result;
+var resultGiphy;
+var resultOMDB;
 
 // funtion to render the buttons.
 function renderButton(){
@@ -20,6 +23,7 @@ function renderButton(){
 // add movie button click event function.
 $("#add-movie").on("click",function(event){
     event.preventDefault();
+    $("#plot-div").text("");
     $("#gif-div").text("");
     var value = $("#movie-input").val();
 
@@ -36,6 +40,8 @@ $("#add-movie").on("click",function(event){
         newMsg.attr("id","msg");
         newMsg.css("color", "red");
         newMsg.css("padding","10px");
+        $("#plot-div").empty();
+        $("#plot-div").append("<p style='color:red;padding:10px;'>OOOPS!!!</p>")
         $("#gif-div").append(newMsg);
     }
 });
@@ -50,29 +56,37 @@ $("#show-fav").on("click",function(event){
 // function to display the GIF images.
 function displayGIF(){
     var movieName = $(this).attr("data-name");
-    console.log(previousMovie);
     if(previousMovie == movieName){
         previousCount +=10;
     } else if(previousMovie != movieName){
         previousCount = 10;
     }
-    console.log("count:",previousCount);
-    var queryURL = `https://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
-    console.log(queryURL);
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response){
-        var result = response.data;
+    var queryURL1 = `http://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
+    var queryURL2 = `http://www.omdbapi.com/?t=${movieName}&apikey=trilogy`;
+    console.log(queryURL1);
+    console.log(queryURL2);
+    $.when( $.ajax({ url:queryURL1,method:"GET",dataType:"json"}), $.ajax({url:queryURL2,method:"GET",dataType:"json"})).then(function(response,omdbResponse ) {
         $("#gif-div").empty();
-        for(i=0;i<result.length;i++){
-
+        $("#plot-div").empty();
+        resultGiphy = response[0].data;
+        resultOMDB = omdbResponse[0];
+        var omdbTitle = resultOMDB.Title;
+        var omdbPlot = resultOMDB.Plot; 
+        var omdbPoster = resultOMDB.Poster;
+        var omdbDiv = $("<div>");
+        var omdbTitleDiv = $("<div><p><strong>TITLE: <strong><p><p>"+omdbTitle+"</p></div>");
+        omdbDiv.append(omdbTitleDiv);
+        var omdbImageDiv = $("<img src='"+omdbPoster+"'>");
+        omdbDiv.append(omdbImageDiv);
+        var omdbPlotDiv = $("<div><p><strong>PLOT: <strong><p><p>"+omdbPlot+"</p></div>");
+        omdbDiv.append(omdbPlotDiv);
+        $("#plot-div").append(omdbDiv);
+        for(i=0;i<resultGiphy.length;i++){
             // get the value, store the value and create a div to append.
-            var stillurl = result[i].images.fixed_height_still.url;
-            var animateurl = result[i].images.fixed_height.url;
-            var rating = result[i].rating.toUpperCase();
-            var picId = result[i].id;
-            console.log(picId);
+            var stillurl = resultGiphy[i].images.fixed_height_still.url;
+            var animateurl = resultGiphy[i].images.fixed_height.url;
+            var rating = resultGiphy[i].rating.toUpperCase();
+            var picId = resultGiphy[i].id;
             var newDiv = $("<div>");
             newDiv.attr("id","gif-rating-div");
             newDiv.addClass("text-center");
@@ -124,6 +138,7 @@ function displayGIF(){
             $("#gif-div").append(newDiv);
         }
     });
+//});
     previousMovie = movieName;
     console.log(previousMovie);
 }
@@ -142,8 +157,9 @@ function toggleGIF(){
 }
 function showFavourite(){
     $("#gif-div").empty();
+    $("#plot-div").empty();
     for(var i=0;i<favourites.length;i++){
-        var favqueryURL = `https://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
+        var favqueryURL = `http://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
     console.log("favqueryURL: "+favqueryURL);
     $.ajax({
         url: favqueryURL,
