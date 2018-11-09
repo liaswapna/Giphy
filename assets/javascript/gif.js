@@ -57,7 +57,7 @@ function displayGIF(){
         previousCount = 10;
     }
     console.log("count:",previousCount);
-    var queryURL = `http://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
+    var queryURL = `https://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
     console.log(queryURL);
     $.ajax({
         url: queryURL,
@@ -143,7 +143,7 @@ function toggleGIF(){
 function showFavourite(){
     $("#gif-div").empty();
     for(var i=0;i<favourites.length;i++){
-        var favqueryURL = `http://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
+        var favqueryURL = `https://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
     console.log("favqueryURL: "+favqueryURL);
     $.ajax({
         url: favqueryURL,
