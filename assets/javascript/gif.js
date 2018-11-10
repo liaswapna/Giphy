@@ -73,8 +73,8 @@ function displayGIF(){
     }
 
     // Multiple ajax calls
-    var queryURL1 = `http://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
-    var queryURL2 = `http://www.omdbapi.com/?t=${movieName}&apikey=trilogy`;
+    var queryURL1 = `https://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
+    var queryURL2 = `https://www.omdbapi.com/?t=${movieName}&apikey=trilogy`;
     $.when( $.ajax({ url:queryURL1,method:"GET",dataType:"json"}), $.ajax({url:queryURL2,method:"GET",dataType:"json"})).then(function(response,omdbResponse ) {
         $("#gif-div").empty();
         $("#plot-div").empty();
@@ -173,7 +173,7 @@ function showFavourite(){
 
     // API calls to each element in the favourites array.
     for(var i=0;i<favourites.length;i++){
-        var favqueryURL = `http://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
+        var favqueryURL = `https://api.giphy.com/v1/gifs/${favourites[i]}?api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6`;
         $.ajax({
             url: favqueryURL,
             method: "GET"
