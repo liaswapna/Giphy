@@ -52,7 +52,10 @@ The app takes the entered search term topics from a user input box and pushes th
 * Integrated the search with additional APIs such as OMDB.
     * Code and Syntax to integrate search with OMDB APIs.
     ```javascript
+    var queryURL1 = `https://api.giphy.com/v1/gifs/search?q=${movieName}&api_key=A2Hw4RAXUAp9JUnpyZh9PqNapjox1Tj6&limit=${previousCount}`;
     var queryURL2 = `http://www.omdbapi.com/?t=${movieName}&apikey=trilogy`;
+    $.when( $.ajax({ url:queryURL1,method:"GET",dataType:"json"}), $.ajax({url:queryURL2,method:"GET",dataType:"json"})).then(function(response,omdbResponse ) {
+    });
     ```
 * Allow users to request additional gifs to be added to the page.
     * Code and Syntax to request additional gifs.
